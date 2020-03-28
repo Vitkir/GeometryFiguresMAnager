@@ -1,0 +1,64 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29806.167
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cherevko.GeometryFiguresManager.Common.Entities", "Cherevko.GeometryFiguresManager.BLL\Cherevko.GeometryFiguresManager.Common.Entities.csproj", "{38B9A2C0-EF41-4661-91D8-0A980F1192CE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BLL", "BLL", "{2B8FA362-8D49-4030-9D0B-F3C65ACADA22}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cherevko.GeometryFiguresManager.BLL.Kernel", "Cherevko.GeometryFiguresManager.BLL.Kernel\Cherevko.GeometryFiguresManager.BLL.Kernel.csproj", "{37C807C0-4697-4E77-BD72-0703A5B3A01E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cherevko.GeometryFiguresManager.BLL.Contract", "Cherevko.GeometryFiguresManager.BLL.Contract\Cherevko.GeometryFiguresManager.BLL.Contract.csproj", "{4A76FF62-BE18-4268-8A75-BEB00BBD1CF3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DAL", "DAL", "{4A180BDA-3438-4411-9BF9-087D5B247AB5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PL", "PL", "{5E9CA015-EF85-476C-BC42-A520B4CD4D45}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{F1804172-561B-4107-A3A2-8A51BB3330AD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cherevko.GeometryFiguresManager.DAL.MSSQL", "Cherevko.GeometryFiguresManager.DAL.MSSQL\Cherevko.GeometryFiguresManager.DAL.MSSQL.csproj", "{9F00776C-19F6-467E-8AA8-278F8482F700}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cherevko.GeometryFiguresManager.DAL.Contract", "Cherevko.GeometryFiguresManager.DAL.Contract\Cherevko.GeometryFiguresManager.DAL.Contract.csproj", "{6F77BD9E-82FF-4836-8FA2-4A5AB55F1A17}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{38B9A2C0-EF41-4661-91D8-0A980F1192CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38B9A2C0-EF41-4661-91D8-0A980F1192CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38B9A2C0-EF41-4661-91D8-0A980F1192CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38B9A2C0-EF41-4661-91D8-0A980F1192CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37C807C0-4697-4E77-BD72-0703A5B3A01E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37C807C0-4697-4E77-BD72-0703A5B3A01E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37C807C0-4697-4E77-BD72-0703A5B3A01E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37C807C0-4697-4E77-BD72-0703A5B3A01E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A76FF62-BE18-4268-8A75-BEB00BBD1CF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A76FF62-BE18-4268-8A75-BEB00BBD1CF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A76FF62-BE18-4268-8A75-BEB00BBD1CF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A76FF62-BE18-4268-8A75-BEB00BBD1CF3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F00776C-19F6-467E-8AA8-278F8482F700}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F00776C-19F6-467E-8AA8-278F8482F700}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F00776C-19F6-467E-8AA8-278F8482F700}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F00776C-19F6-467E-8AA8-278F8482F700}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F77BD9E-82FF-4836-8FA2-4A5AB55F1A17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F77BD9E-82FF-4836-8FA2-4A5AB55F1A17}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F77BD9E-82FF-4836-8FA2-4A5AB55F1A17}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F77BD9E-82FF-4836-8FA2-4A5AB55F1A17}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{38B9A2C0-EF41-4661-91D8-0A980F1192CE} = {F1804172-561B-4107-A3A2-8A51BB3330AD}
+		{37C807C0-4697-4E77-BD72-0703A5B3A01E} = {2B8FA362-8D49-4030-9D0B-F3C65ACADA22}
+		{4A76FF62-BE18-4268-8A75-BEB00BBD1CF3} = {2B8FA362-8D49-4030-9D0B-F3C65ACADA22}
+		{9F00776C-19F6-467E-8AA8-278F8482F700} = {4A180BDA-3438-4411-9BF9-087D5B247AB5}
+		{6F77BD9E-82FF-4836-8FA2-4A5AB55F1A17} = {4A180BDA-3438-4411-9BF9-087D5B247AB5}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9B026CD8-E26B-482C-A707-51D79F85BE4B}
+	EndGlobalSection
+EndGlobal
