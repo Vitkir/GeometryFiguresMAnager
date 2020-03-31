@@ -41,8 +41,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AbstractLogic.cs" />
+    <Compile Include="Cache.cs" />
+    <Compile Include="FigureLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Cherevko.GeometryFiguresManager.BLL.Contract\Cherevko.GeometryFiguresManager.BLL.Contract.csproj">
+      <Project>{4A76FF62-BE18-4268-8A75-BEB00BBD1CF3}</Project>
+      <Name>Cherevko.GeometryFiguresManager.BLL.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cherevko.GeometryFiguresManager.Common.Figures\Cherevko.GeometryFiguresManager.Common.Entities.csproj">
+      <Project>{38b9a2c0-ef41-4661-91d8-0a980f1192ce}</Project>
+      <Name>Cherevko.GeometryFiguresManager.Common.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cherevko.GeometryFiguresManager.DAL.Contract\Cherevko.GeometryFiguresManager.DAL.Contract.csproj">
+      <Project>{6F77BD9E-82FF-4836-8FA2-4A5AB55F1A17}</Project>
+      <Name>Cherevko.GeometryFiguresManager.DAL.Contract</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

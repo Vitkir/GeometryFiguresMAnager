@@ -3,13 +3,13 @@ using System.Collections.Generic;
 
 namespace Cherevko.GeometryFiguresManager.BLL.Contract
 {
-	public interface ILogic
+	public interface ICache
 	{
-		IFigure Create(IFigure figure);
+		IFigure Add(IFigure figure);
+
+		void Remove(int id);
 
 		void Update(IFigure figure);
-
-		void Delete(int id);
 
 		IEnumerable<IFigure> GetAll();
 	}
