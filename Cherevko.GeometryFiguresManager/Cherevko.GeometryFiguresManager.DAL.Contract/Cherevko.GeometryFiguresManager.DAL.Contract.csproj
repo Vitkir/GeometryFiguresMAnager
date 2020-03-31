@@ -41,8 +41,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IDao.cs" />
+    <Compile Include="IFigureDao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Cherevko.GeometryFiguresManager.Common.Figures\Cherevko.GeometryFiguresManager.Common.Entities.csproj">
+      <Project>{38B9A2C0-EF41-4661-91D8-0A980F1192CE}</Project>
+      <Name>Cherevko.GeometryFiguresManager.Common.Entities</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
