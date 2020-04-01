@@ -1,6 +1,6 @@
 ﻿using Cherevko.GeometryFiguresManager.BLL.Contract;
 using Cherevko.GeometryFiguresManager.Common.Entities.Contracts;
-using Cherevko.GeometryFiguresManager.DAL.Contract;
+using Cherevko.GeometryFiguresManager.Common.Entities.Figures;
 using System.Collections.Generic;
 
 namespace Cherevko.GeometryFiguresManager.BLL.Kernel
@@ -29,9 +29,18 @@ namespace Cherevko.GeometryFiguresManager.BLL.Kernel
 			return cache.GetAll();
 		}
 
-		public void Update(IFigure figure)
+		public IFigure Update(IFigure figure)
 		{
-			cache.Update(figure);
+			return cache.Update(figure);
+		}
+		public bool ContainsFigure(int id, FigureTypes type)
+		{
+			return cache.ContainsFigure(id, type);
+		}
+
+		public void RestoreCache()
+		{
+			cache.RestoreCache();
 		}
 	}
 }

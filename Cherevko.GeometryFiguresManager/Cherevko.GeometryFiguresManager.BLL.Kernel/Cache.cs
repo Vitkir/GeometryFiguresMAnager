@@ -1,5 +1,6 @@
 ﻿using Cherevko.GeometryFiguresManager.BLL.Contract;
 using Cherevko.GeometryFiguresManager.Common.Entities.Contracts;
+using Cherevko.GeometryFiguresManager.Common.Entities.Figures;
 using Cherevko.GeometryFiguresManager.DAL.Contract;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace Cherevko.GeometryFiguresManager.BLL.Kernel
 		public Cache(IFigureDao figureDao)
 		{
 			this.figureDao = figureDao;
-			cache = new Dictionary<int, IFigure>();
+			cache = UpdateCache();
 			deleteCache = new List<int>();
 		}
 
@@ -40,12 +41,17 @@ namespace Cherevko.GeometryFiguresManager.BLL.Kernel
 				cache.Remove(id);
 				return;
 			}
-			throw new KeyNotFoundException();
+			throw new KeyNotFoundException("obj with id doesn't exist");
 		}
 
-		public void Update(IFigure figure)
+		public IFigure Update(IFigure figure)
 		{
-			cache[figure.Id] = figure;
+			if (cache.ContainsKey(figure.Id))
+			{
+				cache[figure.Id] = figure;
+				return cache[figure.Id];
+			}
+			throw new KeyNotFoundException("obj with id doesn't exist");
 		}
 
 		public void RestoreCache()
@@ -54,6 +60,20 @@ namespace Cherevko.GeometryFiguresManager.BLL.Kernel
 			figureDao.Delete(deleteCache);
 
 			deleteCache.Clear();
+		}
+
+		public bool ContainsFigure(int id, FigureTypes type)
+		{
+			if (cache.ContainsKey(id))
+			{
+				return cache[id].GetFigureType() == type ? true : false;
+			}
+			return false;
+		}
+
+		private Dictionary<int, IFigure> UpdateCache()
+		{
+			return figureDao.GetAll();
 		}
 	}
 }

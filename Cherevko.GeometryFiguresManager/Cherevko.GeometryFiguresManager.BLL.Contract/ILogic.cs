@@ -1,4 +1,5 @@
 ﻿using Cherevko.GeometryFiguresManager.Common.Entities.Contracts;
+using Cherevko.GeometryFiguresManager.Common.Entities.Figures;
 using System.Collections.Generic;
 
 namespace Cherevko.GeometryFiguresManager.BLL.Contract
@@ -7,10 +8,14 @@ namespace Cherevko.GeometryFiguresManager.BLL.Contract
 	{
 		IFigure Create(IFigure figure);
 
-		void Update(IFigure figure);
+		IFigure Update(IFigure figure);
 
 		void Delete(int id);
 
 		IEnumerable<IFigure> GetAll();
+
+		bool ContainsFigure(int id, FigureTypes type);
+
+		void RestoreCache();
 	}
 }
