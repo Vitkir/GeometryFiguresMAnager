@@ -2,6 +2,7 @@
 using Cherevko.GeometryFiguresManager.Common.Entities.Figures;
 using Cherevko.GeometryFiguresManager.DAL.Contract;
 using Microsoft.SqlServer.Types;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -25,9 +26,9 @@ namespace Cherevko.GeometryFiguresManager.DAL.MSSQL
 			switch (figure)
 			{
 				case Round round:
-					return CreateCircle(round, FigureTypes.Round);
+					return CreateCircle("CreateRound", round, ReadRound);
 				case Circle circle:
-					return CreateCircle(circle, FigureTypes.Circle);
+					return CreateCircle("CreateCircle", circle, ReadCircle);
 				case Square square:
 					return CreateSquare(square);
 				case Rectangle rectangle:
@@ -47,9 +48,9 @@ namespace Cherevko.GeometryFiguresManager.DAL.MSSQL
 
 			using (SqlConnection connection = new SqlConnection(connectionString))
 			{
-				SqlCommand command = new SqlCommand("Delete");
+				SqlCommand command = new SqlCommand("DeleteFigure", connection);
 				command.CommandType = CommandType.StoredProcedure;
-				command.Parameters.AddWithValue("deleteCache", table);
+				command.Parameters.AddWithValue("@deleteCache", table);
 
 				connection.Open();
 				command.ExecuteNonQuery();
@@ -62,7 +63,7 @@ namespace Cherevko.GeometryFiguresManager.DAL.MSSQL
 
 			using (SqlConnection connection = new SqlConnection(connectionString))
 			{
-				SqlCommand command = new SqlCommand("GetAll");
+				SqlCommand command = new SqlCommand("GetAll", connection);
 				command.CommandType = CommandType.StoredProcedure;
 				connection.Open();
 				var reader = command.ExecuteReader();
@@ -71,24 +72,35 @@ namespace Cherevko.GeometryFiguresManager.DAL.MSSQL
 					var circle = ReadCircle(reader);
 					result.Add(circle.Id, circle);
 				}
+
+				reader.NextResult();
+				while (reader.Read())
+				{
+					var round = ReadRound(reader);
+					result.Add(round.Id, round);
+				}
+
 				reader.NextResult();
 				while (reader.Read())
 				{
 					var square = ReadSquare(reader);
 					result.Add(square.Id, square);
 				}
+
 				reader.NextResult();
 				while (reader.Read())
 				{
 					var rectangle = ReadRectangle(reader);
 					result.Add(rectangle.Id, rectangle);
 				}
+
 				reader.NextResult();
 				while (reader.Read())
 				{
 					var triangle = ReadTriangle(reader);
 					result.Add(triangle.Id, triangle);
 				}
+
 				reader.NextResult();
 				while (reader.Read())
 				{
@@ -111,54 +123,57 @@ namespace Cherevko.GeometryFiguresManager.DAL.MSSQL
 
 			using (SqlConnection connection = new SqlConnection(connectionString))
 			{
-				SqlCommand command = new SqlCommand("Update");
+				SqlCommand command = new SqlCommand("UpdateFigures", connection);
 				command.CommandType = CommandType.StoredProcedure;
-				command.Parameters.AddWithValue("common", common);
-				command.Parameters.AddWithValue("circles", circles);
-				command.Parameters.AddWithValue("squres", squqres);
-				command.Parameters.AddWithValue("rectangles", rectangles);
-				command.Parameters.AddWithValue("triangles", triangles);
-				command.Parameters.AddWithValue("regularPolygons", regularPolygon);
+				command.Parameters.AddWithValue("@common", common);
+				command.Parameters.AddWithValue("@circles", circles);
+				command.Parameters.AddWithValue("@squares", squqres);
+				command.Parameters.AddWithValue("@rectangles", rectangles);
+				command.Parameters.AddWithValue("@triangles", triangles);
+				command.Parameters.AddWithValue("@regularPolygons", regularPolygon);
 
 				connection.Open();
 				command.ExecuteNonQuery();
 			}
 		}
 
-		private Circle CreateCircle(Circle circle, FigureTypes figures)
+		private Circle CreateCircle(string cmdText, Circle circle, Func<SqlDataReader, Circle> readFigure)
 		{
 			Circle result = default;
 
 			using (SqlConnection connection = new SqlConnection(connectionString))
 			{
-				SqlCommand command = new SqlCommand("CreateCircle");
+				SqlCommand command = new SqlCommand(cmdText, connection);
 				command.CommandType = CommandType.StoredProcedure;
 				var point = ToSqlGeometry(circle.BasicPoint);
-				command.Parameters.AddWithValue("basicPoint", point);
-				command.Parameters.AddWithValue("radius", circle.Radius);
-				command.Parameters.AddWithValue("type", (int)figures);
+				command.Parameters.Add(new SqlParameter("@basicPoint", point) { UdtTypeName = "Geometry" });
+				command.Parameters.AddWithValue("@radius", circle.Radius);
+				command.Parameters.AddWithValue("@type", (int)circle.GetFigureType());
 				connection.Open();
 				var reader = command.ExecuteReader();
-				while (reader.Read())
+				if (reader.HasRows)
 				{
-					result = ReadCircle(reader);
+					while (reader.Read())
+					{
+						result = readFigure(reader);
+					}
 				}
 			}
 
 			return result;
 		}
 
-		private IFigure CreateSquare(Square square)
+		private Square CreateSquare(Square square)
 		{
 			Square result = default;
 
 			using (SqlConnection connection = new SqlConnection(connectionString))
 			{
-				SqlCommand command = new SqlCommand("CreateSquare");
+				SqlCommand command = new SqlCommand("CreateSquare", connection);
 				command.CommandType = CommandType.StoredProcedure;
 				var point = ToSqlGeometry(square.BasicPoint);
-				command.Parameters.AddWithValue("basicPoint", point);
-				command.Parameters.AddWithValue("side", square.Side);
+				command.Parameters.Add(new SqlParameter("@basicPoint", point) { UdtTypeName = "Geometry" });
+				command.Parameters.AddWithValue("@side", square.Side);
 				connection.Open();
 				var reader = command.ExecuteReader();
 				while (reader.Read())
@@ -170,18 +185,18 @@ namespace Cherevko.GeometryFiguresManager.DAL.MSSQL
 			return result;
 		}
 
-		private IFigure CreateRectangle(Rectangle rectangle)
+		private Rectangle CreateRectangle(Rectangle rectangle)
 		{
 			Rectangle result = default;
 
 			using (SqlConnection connection = new SqlConnection(connectionString))
 			{
-				SqlCommand command = new SqlCommand("CreateRectangle");
+				SqlCommand command = new SqlCommand("CreateRectangle", connection);
 				command.CommandType = CommandType.StoredProcedure;
 				var point = ToSqlGeometry(rectangle.BasicPoint);
-				command.Parameters.AddWithValue("basicPoint", point);
-				command.Parameters.AddWithValue("width", rectangle.Width);
-				command.Parameters.AddWithValue("height", rectangle.Height);
+				command.Parameters.Add(new SqlParameter("@basicPoint", point) { UdtTypeName = "Geometry" });
+				command.Parameters.AddWithValue("@width", rectangle.Width);
+				command.Parameters.AddWithValue("@height", rectangle.Height);
 				connection.Open();
 				var reader = command.ExecuteReader();
 				while (reader.Read())
@@ -193,19 +208,19 @@ namespace Cherevko.GeometryFiguresManager.DAL.MSSQL
 			return result;
 		}
 
-		private IFigure CreateTriangle(Triangle triangle)
+		private Triangle CreateTriangle(Triangle triangle)
 		{
 			Triangle result = default;
 
 			using (SqlConnection connection = new SqlConnection(connectionString))
 			{
-				SqlCommand command = new SqlCommand("CreateTriangle");
+				SqlCommand command = new SqlCommand("CreateTriangle", connection);
 				command.CommandType = CommandType.StoredProcedure;
 				var point = ToSqlGeometry(triangle.BasicPoint);
-				command.Parameters.AddWithValue("basicPoint", point);
-				command.Parameters.AddWithValue("firstSide", triangle.FirstSide);
-				command.Parameters.AddWithValue("secondSide", triangle.SecondSide);
-				command.Parameters.AddWithValue("angle", triangle.Angle);
+				command.Parameters.Add(new SqlParameter("@basicPoint", point) { UdtTypeName = "Geometry" });
+				command.Parameters.AddWithValue("@firstSide", triangle.FirstSide);
+				command.Parameters.AddWithValue("@secondSide", triangle.SecondSide);
+				command.Parameters.AddWithValue("@angle", triangle.Angle);
 				connection.Open();
 				var reader = command.ExecuteReader();
 				while (reader.Read())
@@ -217,18 +232,18 @@ namespace Cherevko.GeometryFiguresManager.DAL.MSSQL
 			return result;
 		}
 
-		private IFigure CreateRegularPolygon(RegularPolygon polygon)
+		private RegularPolygon CreateRegularPolygon(RegularPolygon polygon)
 		{
 			RegularPolygon result = default;
 
 			using (SqlConnection connection = new SqlConnection(connectionString))
 			{
-				SqlCommand command = new SqlCommand("CreateRegularPolygon");
+				SqlCommand command = new SqlCommand("CreateRegularPolygon", connection);
 				command.CommandType = CommandType.StoredProcedure;
 				var point = ToSqlGeometry(polygon.BasicPoint);
-				command.Parameters.AddWithValue("basicPoint", point);
-				command.Parameters.AddWithValue("sideCount", polygon.SideCount);
-				command.Parameters.AddWithValue("inradius", polygon.Inradius);
+				command.Parameters.Add(new SqlParameter("@basicPoint", point) { UdtTypeName = "Geometry" });
+				command.Parameters.AddWithValue("@sideCount", polygon.SideCount);
+				command.Parameters.AddWithValue("@inradius", polygon.Inradius);
 				connection.Open();
 				var reader = command.ExecuteReader();
 				while (reader.Read())
@@ -247,6 +262,17 @@ namespace Cherevko.GeometryFiguresManager.DAL.MSSQL
 			Circle result;
 			var basicPoint = ToPoint((SqlGeometry)reader["basicPoint"]);
 			result = new Circle(basicPoint, (double)reader["radius"])
+			{
+				Id = (int)reader["id"]
+			};
+			return result;
+		}
+
+		private Round ReadRound(SqlDataReader reader)
+		{
+			Round result;
+			var basicPoint = ToPoint((SqlGeometry)reader["basicPoint"]);
+			result = new Round(basicPoint, (double)reader["radius"])
 			{
 				Id = (int)reader["id"]
 			};
@@ -327,12 +353,17 @@ namespace Cherevko.GeometryFiguresManager.DAL.MSSQL
 		{
 			DataTable table = new DataTable("common");
 			table.Columns.Add("id", typeof(int));
-			table.Columns.Add("basicPoint", typeof(SqlGeometry));
+			table.Columns.Add("basicPoint", typeof(string));
 			table.Columns.Add("type", typeof(int));
 
 			foreach (var item in figures.Values)
 			{
-				table.Rows.Add(item.Id, item.BasicPoint, item.GetFigureType());
+				table.Rows.Add(item.Id,
+					ToSqlGeometry(item.BasicPoint)
+					.STAsText()
+					.ToSqlString()
+					.ToString(),
+					(int)item.GetFigureType());
 			}
 			return table;
 		}
