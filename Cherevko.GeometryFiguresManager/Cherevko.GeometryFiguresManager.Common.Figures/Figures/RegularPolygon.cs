@@ -18,7 +18,7 @@ namespace Cherevko.GeometryFiguresManager.Common.Entities.Figures
 			get => sideCount;
 			set
 			{
-				sideCount = value > 0 ? value : throw new ArgumentException();
+				sideCount = value > 0 ? value : throw new ArgumentException("side count cannot be negative");
 			}
 		}
 
@@ -27,7 +27,7 @@ namespace Cherevko.GeometryFiguresManager.Common.Entities.Figures
 			get => inradius;
 			set
 			{
-				inradius = value > 0 ? value : throw new ArgumentException();
+				inradius = value > 0 ? value : throw new ArgumentException("inradius cannot be negative");
 			}
 		}
 
@@ -68,7 +68,9 @@ namespace Cherevko.GeometryFiguresManager.Common.Entities.Figures
 		public override string ToString()
 		{
 			var newLine = Environment.NewLine;
-			return $"BasicPoint:{BasicPoint}{newLine}" +
+			var id = Id > 0 ? $"Id: {Id}{newLine}" : "";
+			return id +
+				$"BasicPoint:{BasicPoint}{newLine}" +
 				$"Inradius:{Inradius}{newLine}" +
 				$"SideCount:{SideCount}{newLine}" +
 				$"SideLength:{SideLength}{newLine}" +
@@ -83,6 +85,11 @@ namespace Cherevko.GeometryFiguresManager.Common.Entities.Figures
 			{
 				Id = Id
 			};
+		}
+
+		public string Print()
+		{
+			return ToString();
 		}
 	}
 }

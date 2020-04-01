@@ -12,7 +12,7 @@ namespace Cherevko.GeometryFiguresManager.Common.Entities.Figures
 		}
 
 
-		public Round(Point basicPoint, double radius) : 
+		public Round(Point basicPoint, double radius) :
 			base(basicPoint, radius, FigureTypes.Round)
 		{
 		}
@@ -20,7 +20,12 @@ namespace Cherevko.GeometryFiguresManager.Common.Entities.Figures
 		public override string ToString()
 		{
 			return base.ToString() + Environment.NewLine +
-				$"{Area}";
+				$"Area: {Area}";
+		}
+
+		public string Print()
+		{
+			return ToString();
 		}
 	}
 }

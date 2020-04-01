@@ -18,7 +18,7 @@ namespace Cherevko.GeometryFiguresManager.Common.Entities.Figures
 			get => height;
 			set
 			{
-				height = value > 0 ? value : throw new ArgumentException();
+				height = value > 0 ? value : throw new ArgumentException("height cannot be negative");
 			}
 		}
 
@@ -27,7 +27,7 @@ namespace Cherevko.GeometryFiguresManager.Common.Entities.Figures
 			get => width;
 			set
 			{
-				width = value > 0 ? value : throw new ArgumentException();
+				width = value > 0 ? value : throw new ArgumentException("width cannot be negative");
 			}
 		}
 
@@ -54,7 +54,9 @@ namespace Cherevko.GeometryFiguresManager.Common.Entities.Figures
 		public override string ToString()
 		{
 			var newLine = Environment.NewLine;
-			return $"BasicPoint:{BasicPoint}{newLine}" +
+			var id = Id > 0 ? $"Id: {Id}{newLine}" : "";
+			return id +
+				$"BasicPoint:{BasicPoint}{newLine}" +
 				$"Height:{Height}{newLine}" +
 				$"Width:{Width}{newLine}" +
 				$"Perimeter:{Perimeter}{newLine}" +
@@ -67,6 +69,11 @@ namespace Cherevko.GeometryFiguresManager.Common.Entities.Figures
 			{
 				Id = Id
 			};
+		}
+
+		public string Print()
+		{
+			return ToString();
 		}
 	}
 }

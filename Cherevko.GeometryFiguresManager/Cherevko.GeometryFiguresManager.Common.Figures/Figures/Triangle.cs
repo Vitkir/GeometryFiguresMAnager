@@ -19,7 +19,7 @@ namespace Cherevko.GeometryFiguresManager.Common.Entities.Figures
 			get => angle;
 			set
 			{
-				angle = value > 0 && value < 180 ? value : throw new ArgumentException();
+				angle = value > 0 && value < 180 ? value : throw new ArgumentException("angle must be from 0 to 180");
 			}
 		}
 
@@ -28,7 +28,7 @@ namespace Cherevko.GeometryFiguresManager.Common.Entities.Figures
 			get => firstSide;
 			set
 			{
-				firstSide = value > 0 ? value : throw new ArgumentException();
+				firstSide = value > 0 ? value : throw new ArgumentException("side length cannot be negative");
 			}
 		}
 
@@ -37,7 +37,7 @@ namespace Cherevko.GeometryFiguresManager.Common.Entities.Figures
 			get => secondSide;
 			set
 			{
-				secondSide = value > 0 ? value : throw new ArgumentException();
+				secondSide = value > 0 ? value : throw new ArgumentException("side length cannot be negative");
 			}
 		}
 
@@ -76,7 +76,9 @@ namespace Cherevko.GeometryFiguresManager.Common.Entities.Figures
 		public override string ToString()
 		{
 			var newLine = Environment.NewLine;
-			return $"BasicPoint:{BasicPoint}{newLine}" +
+			var id = Id > 0 ? $"Id: {Id}{newLine}" : "";
+			return id +
+				$"BasicPoint:{BasicPoint}{newLine}" +
 				$"Angle:{Angle}{newLine}" +
 				$"FirstSide:{FirstSide}{newLine}" +
 				$"SecondSide:{SecondSide}{newLine}" +
@@ -91,6 +93,11 @@ namespace Cherevko.GeometryFiguresManager.Common.Entities.Figures
 			{
 				Id = Id,
 			};
+		}
+
+		public string Print()
+		{
+			return ToString();
 		}
 	}
 }

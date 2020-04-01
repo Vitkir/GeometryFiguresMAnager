@@ -8,5 +8,7 @@ namespace Cherevko.GeometryFiguresManager.Common.Entities.Contracts
 		Point BasicPoint { get; set; }
 
 		double Perimeter { get; }
+
+		string Print();
 	}
 }

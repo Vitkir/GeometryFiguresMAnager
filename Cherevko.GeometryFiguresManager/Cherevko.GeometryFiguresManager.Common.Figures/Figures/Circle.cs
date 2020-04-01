@@ -17,7 +17,7 @@ namespace Cherevko.GeometryFiguresManager.Common.Entities.Figures
 			get => radius;
 			set
 			{
-				radius = value > 0 ? value : throw new ArgumentException();
+				radius = value > 0 ? value : throw new ArgumentException("radius cannot be negative");
 			}
 		}
 
@@ -28,7 +28,7 @@ namespace Cherevko.GeometryFiguresManager.Common.Entities.Figures
 
 		public FigureTypes Type { get; }
 
-		public Circle(Point basicPoint, double radius) : 
+		public Circle(Point basicPoint, double radius) :
 			this(basicPoint, radius, FigureTypes.Circle)
 		{
 		}
@@ -43,7 +43,9 @@ namespace Cherevko.GeometryFiguresManager.Common.Entities.Figures
 		public override string ToString()
 		{
 			var newLine = Environment.NewLine;
-			return $"BasicPoint:{BasicPoint}{newLine}" +
+			var id = Id > 0 ? $"Id: {Id}{newLine}" : "";
+			return id +
+				$"BasicPoint:{BasicPoint}{newLine}" +
 				$"Radius:{Radius}{newLine}" +
 				$"Perimeter:{Perimeter}{newLine}";
 		}
@@ -54,6 +56,11 @@ namespace Cherevko.GeometryFiguresManager.Common.Entities.Figures
 			{
 				Id = Id
 			};
+		}
+
+		public string Print()
+		{
+			return ToString();
 		}
 	}
 }

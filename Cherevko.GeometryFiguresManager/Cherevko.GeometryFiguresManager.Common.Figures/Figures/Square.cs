@@ -17,7 +17,7 @@ namespace Cherevko.GeometryFiguresManager.Common.Entities.Figures
 			get => side;
 			set
 			{
-				side = value > 0 ? value : throw new ArgumentException();
+				side = value > 0 ? value : throw new ArgumentException("side length cannot be negative");
 			}
 		}
 
@@ -42,7 +42,10 @@ namespace Cherevko.GeometryFiguresManager.Common.Entities.Figures
 		public override string ToString()
 		{
 			var newLine = Environment.NewLine;
-			return $"BasicPoint:{BasicPoint}{newLine}" +
+			var id = Id > 0 ? $"Id: {Id}{newLine}" : "";
+
+			return id +
+				$"BasicPoint:{BasicPoint}{newLine}" +
 				$"Perimeter:{Perimeter}{newLine}" +
 				$"Area:{Area}{newLine}";
 		}
@@ -53,6 +56,11 @@ namespace Cherevko.GeometryFiguresManager.Common.Entities.Figures
 			{
 				Id = Id
 			};
+		}
+
+		public string Print()
+		{
+			return ToString();
 		}
 	}
 }
