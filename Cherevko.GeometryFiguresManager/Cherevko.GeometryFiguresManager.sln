@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cherevko.GeometryFiguresManager.Common.Entities", "Cherevko.GeometryFiguresManager.BLL\Cherevko.GeometryFiguresManager.Common.Entities.csproj", "{38B9A2C0-EF41-4661-91D8-0A980F1192CE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cherevko.GeometryFiguresManager.Common.Entities", "Cherevko.GeometryFiguresManager.Common.Figures\Cherevko.GeometryFiguresManager.Common.Entities.csproj", "{38B9A2C0-EF41-4661-91D8-0A980F1192CE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BLL", "BLL", "{2B8FA362-8D49-4030-9D0B-F3C65ACADA22}"
 EndProject
@@ -20,6 +20,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cherevko.GeometryFiguresManager.DAL.MSSQL", "Cherevko.GeometryFiguresManager.DAL.MSSQL\Cherevko.GeometryFiguresManager.DAL.MSSQL.csproj", "{9F00776C-19F6-467E-8AA8-278F8482F700}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cherevko.GeometryFiguresManager.DAL.Contract", "Cherevko.GeometryFiguresManager.DAL.Contract\Cherevko.GeometryFiguresManager.DAL.Contract.csproj", "{6F77BD9E-82FF-4836-8FA2-4A5AB55F1A17}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cherevko.GeometryFiguresManager.Common.DependencyInjection", "Cherevko.GeometryFiguresManager.Common.DependencyInjection\Cherevko.GeometryFiguresManager.Common.DependencyInjection.csproj", "{A2178FE7-3893-4A62-92F9-18BC318E4534}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cherevko.GeometryFiguresManager.PL.Console", "Cherevko.GeometryFiguresManager.PL.Console\Cherevko.GeometryFiguresManager.PL.Console.csproj", "{4A55F41E-5CF9-4F94-ADDD-3F7117EFF39E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +51,14 @@ Global
 		{6F77BD9E-82FF-4836-8FA2-4A5AB55F1A17}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6F77BD9E-82FF-4836-8FA2-4A5AB55F1A17}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6F77BD9E-82FF-4836-8FA2-4A5AB55F1A17}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2178FE7-3893-4A62-92F9-18BC318E4534}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2178FE7-3893-4A62-92F9-18BC318E4534}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2178FE7-3893-4A62-92F9-18BC318E4534}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2178FE7-3893-4A62-92F9-18BC318E4534}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A55F41E-5CF9-4F94-ADDD-3F7117EFF39E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A55F41E-5CF9-4F94-ADDD-3F7117EFF39E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A55F41E-5CF9-4F94-ADDD-3F7117EFF39E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A55F41E-5CF9-4F94-ADDD-3F7117EFF39E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -57,6 +69,8 @@ Global
 		{4A76FF62-BE18-4268-8A75-BEB00BBD1CF3} = {2B8FA362-8D49-4030-9D0B-F3C65ACADA22}
 		{9F00776C-19F6-467E-8AA8-278F8482F700} = {4A180BDA-3438-4411-9BF9-087D5B247AB5}
 		{6F77BD9E-82FF-4836-8FA2-4A5AB55F1A17} = {4A180BDA-3438-4411-9BF9-087D5B247AB5}
+		{A2178FE7-3893-4A62-92F9-18BC318E4534} = {F1804172-561B-4107-A3A2-8A51BB3330AD}
+		{4A55F41E-5CF9-4F94-ADDD-3F7117EFF39E} = {5E9CA015-EF85-476C-BC42-A520B4CD4D45}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9B026CD8-E26B-482C-A707-51D79F85BE4B}
